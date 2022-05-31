@@ -4,7 +4,9 @@ Port rtl8821CU to openwrt tentative
 ## Install (credits: riotnetwork)
 
 Edit your feeds.conf or feed.conf.default and add the following to it:
+
 #rtl8821CU feed
+
 src-git rtl8821cu https://github.com/sidney-ikeda/rtl8821CU-openwrt.git
 
 Update your build environment and install the packages:
