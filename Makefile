@@ -1,7 +1,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rtl8821cu
-PKG_RELEASE=1
+PKG_VERSION:=2022-05-30
+PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_LICENSE:=GPLv2
 PKG_LICENSE_FILES:=
@@ -14,14 +15,15 @@ PKG_SOURCE_VERSION:=8c2226a74ae718439d56248bd2e44ccf717086d5
 
 PKG_MAINTAINER:=brektrou
 PKG_BUILD_PARALLEL:=1
-#PKG_EXTMOD_SUBDIRS:=rtl8821cu
+#PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+#PKG_EXTMOD_SUBDIRS:=$(PKG_NAME)
 
 STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backport/autoconf.h
 
 include $(INCLUDE_DIR)/kernel.mk
 include $(INCLUDE_DIR)/package.mk
 
-define KernelPackage/rtl8821cu
+define KernelPackage/$(PKG_NAME)
   SUBMENU:=Wireless Drivers
   TITLE:=Driver for Realtek 8821CU
   DEPENDS:=+kmod-cfg80211 +kmod-usb-core +usb-modeswitch +@DRIVER_11N_SUPPORT +@DRIVER_11AC_SUPPORT
@@ -48,7 +50,7 @@ define Build/Compile
 		$(KERNEL_MAKE_FLAGS) \
 		M="$(PKG_BUILD_DIR)" \
 		NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
-		modules
+		MODULE_NAME="$(PKG_NAME)"
 endef
 
-$(eval $(call KernelPackage,rtl8821cu))
+$(eval $(call KernelPackage,$(PKG_NAME)))
