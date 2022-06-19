@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -2131,7 +2131,10 @@ ifneq ($(USER_MODULE_NAME),)
+ MODULE_NAME := $(USER_MODULE_NAME)
+ endif
+ 
++
+ ifneq ($(KERNELRELEASE),)
++KERNELRELEASE := $(shell uname -r)
++endif
+ 
+ ########### this part for *.mk ############################
+ include $(src)/hal/phydm/phydm.mk
