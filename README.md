@@ -1,19 +1,16 @@
 WIP
 
 # rtl8821CU-openwrt
-Port rtl8821CU to openwrt tentative
+Attempt to port rtl8821CU driver to openwrt
 
 ## Install
 
-Edit your feeds.conf or feed.conf.default and add the following to it:
-
-    #rtl8821CU feed
-    src-git rtl8821cu https://github.com/sidney-ikeda/rtl8821CU-openwrt.git
+git clone https://github.com/sidney-ikeda/rtl8821CU-openwrt.git to folder: openwrt/package/kernel/
 
 Update your build environment and install the packages:
 
-     $ ./scripts/feeds update rtl8821cu
-     $ ./scripts/feeds install -a -p rtl8821cu
+     $ ./scripts/feeds update -a
+     $ ./scripts/feeds install -a
      $ make menuconfig
 
 Driver is located in `Kernel modules -> Wireless Drivers -> kmod-rtl8821cu`:
