@@ -1,0 +1,17 @@
+--- a/Makefile
++++ b/Makefile
+@@ -2204,11 +2204,11 @@ ifeq ($(CONFIG_RTL8723B), y)
+ $(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/rtw_bt_mp.o
+ endif
+ 
++ifneq ($(CONFIG_RTL8821CU),)
+ obj-$(CONFIG_RTL8821CU) := $(MODULE_NAME).o
+-
+ else
+-
+-export CONFIG_RTL8821CU = m
++obj-m := $(MODULE_NAME).o
++#export CONFIG_RTL8821CU = m
+ 
+ module: modules
+ all: modules
