@@ -1,4 +1,7 @@
-WIP
+WIP:
+
+2022-06-20
+Can be compiled in openwrt v22.03.0-rc1 but at device cause freeze when try to search wifi AP.
 
 # rtl8821CU-openwrt
 Attempt to port rtl8821CU driver to openwrt
