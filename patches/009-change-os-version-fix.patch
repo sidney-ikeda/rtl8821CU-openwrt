@@ -1,0 +1,71 @@
+--- a/core/rtw_br_ext.c
++++ b/core/rtw_br_ext.c
+@@ -18,7 +18,7 @@
+ 	#include <linux/if_arp.h>
+ 	#include <net/ip.h>
+ 	#include <linux/version.h>
+-	#if (LINUX_VERSION_CODE <= KERNEL_VERSION(5, 14, 0))
++	#if (LINUX_VERSION_CODE <= KERNEL_VERSION(5, 10, 0))
+ 	#include <net/ipx.h>
+ 	#endif
+ 	#include <linux/atalk.h>
+@@ -172,7 +172,7 @@ static __inline__ void __nat25_generate_
+ }
+ 
+ 
+-#if (LINUX_VERSION_CODE <= KERNEL_VERSION(5, 14, 0))
++#if (LINUX_VERSION_CODE <= KERNEL_VERSION(5, 10, 0))
+ static __inline__ void __nat25_generate_ipx_network_addr_with_node(unsigned char *networkAddr,
+ 		unsigned int *ipxNetAddr, unsigned char *ipxNodeAddr)
+ {
+@@ -894,7 +894,7 @@ int nat25_db_handle(_adapter *priv, stru
+ 		}
+ 	}
+ 
+-#if (LINUX_VERSION_CODE <= KERNEL_VERSION(5, 14, 0))
++#if (LINUX_VERSION_CODE <= KERNEL_VERSION(5, 10, 0))
+ 	/*---------------------------------------------------*/
+ 	/*         Handle IPX and Apple Talk frame          */
+ 	/*---------------------------------------------------*/
+--- a/os_dep/linux/os_intfs.c
++++ b/os_dep/linux/os_intfs.c
+@@ -1216,7 +1216,7 @@ static int rtw_net_set_mac_address(struc
+ 	}
+ 
+ 	_rtw_memcpy(adapter_mac_addr(padapter), sa->sa_data, ETH_ALEN); /* set mac addr to adapter */
+-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0))
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0))
+ 	eth_hw_addr_set(pnetdev, sa->sa_data);
+ #else
+ 	_rtw_memcpy(pnetdev->dev_addr, sa->sa_data, ETH_ALEN); /* set mac addr to net_device */
+@@ -1657,7 +1657,7 @@ int rtw_os_ndev_register(_adapter *adapt
+ 	/* alloc netdev name */
+ 	rtw_init_netdev_name(ndev, name);
+ 
+-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0))
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0))
+ 	eth_hw_addr_set(ndev, adapter_mac_addr(adapter));
+ #else
+ 	_rtw_memcpy(ndev->dev_addr, adapter_mac_addr(adapter), ETH_ALEN);
+--- a/os_dep/linux/rtw_proc.c
++++ b/os_dep/linux/rtw_proc.c
+@@ -37,7 +37,7 @@ inline struct proc_dir_entry *get_rtw_dr
+ #if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0))
+ #define PDE_DATA(inode) PDE((inode))->data
+ #define proc_get_parent_data(inode) PDE((inode))->parent->data
+-#elif (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0))
++#elif (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0))
+ #define PDE_DATA(inode) pde_data(inode)
+ #endif
+ 
+--- a/os_dep/osdep_service.c
++++ b/os_dep/osdep_service.c
+@@ -1294,7 +1294,7 @@ u32 _rtw_down_sema(_sema *sema)
+ inline void thread_exit(_completion *comp)
+ {
+ #ifdef PLATFORM_LINUX
+-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0))
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0))
+ 	kthread_complete_and_exit(comp, 0);
+ #else
+ 	complete_and_exit(comp, 0);
